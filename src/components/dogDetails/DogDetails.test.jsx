@@ -21,4 +21,14 @@ describe("DogDetails", () => {
         "https://www.petlove.com.br/static/pets/dog/48881/hd_1531952446-photo.jpg",
     });
   });
+
+  it("should render alert when onBark function is called", () => {
+    window.alert = jest.fn();
+
+    const wrapper = shallow(<DogDetails />);
+
+    wrapper.invoke("onBark")("");
+
+    expect(window.alert).toHaveBeenCalledWith("Woof! Woof!");
+  });
 });

@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import DogDetailsView from "./DogDetailsView";
 
 interface Props {
@@ -6,7 +7,11 @@ interface Props {
 }
 
 const DogDetails = ({ name, image }: Props) => {
-  return <DogDetailsView name={name} image={image} />;
+  const onBark = useCallback(() => {
+    alert("Woof! Woof!");
+  }, []);
+
+  return <DogDetailsView name={name} image={image} onBark={onBark} />;
 };
 
 export default DogDetails;
