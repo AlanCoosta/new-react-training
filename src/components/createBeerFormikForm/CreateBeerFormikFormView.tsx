@@ -17,7 +17,7 @@ const CreateBeerFormikFormView = ({ onSubmit }: Props) => {
 
   return (
     <Formik
-      initialValues={{ name: "", type: "", hasCorn: true, ingredients: "" }}
+      initialValues={{ name: "", type: "", hasCorn: false, ingredients: "" }}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
