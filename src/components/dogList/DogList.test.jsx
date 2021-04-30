@@ -11,11 +11,6 @@ jest.mock("../../services/dogList/DogListService.ts");
 jest.mock("../../services/dogImage/DogImageService.ts");
 
 describe("DogList", () => {
-  const dogBreedsMock = [
-    { name: "affenpinscher", image: "url of image" },
-    { name: "basenji", image: "url of image" },
-  ];
-
   it("should DogList have type of DogListView", () => {
     const wrapper = shallow(<DogList />);
 

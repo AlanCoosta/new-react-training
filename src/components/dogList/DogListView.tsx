@@ -1,4 +1,5 @@
 import Card from "@material-ui/core/Card";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -10,9 +11,10 @@ import { DogListStyle } from "./DogListView.styles";
 
 interface Props {
   dogBreeds: DogBreed[];
+  isLoading: boolean;
 }
 
-const DogListView = ({ dogBreeds }: Props) => {
+const DogListView = ({ dogBreeds, isLoading }: Props) => {
   const classes = DogListStyle();
 
   return (
@@ -21,18 +23,26 @@ const DogListView = ({ dogBreeds }: Props) => {
         DogListView
       </Typography>
 
-      <List className={classes.list}>
-        {dogBreeds.map((item) => (
-          <ListItem key={item.image}>
-            <img
-              src={item.image}
-              alt={item.name}
-              className={classes.listItemImage}
-            />
-            <ListItemText>{capitalize(item.name)}</ListItemText>
-          </ListItem>
-        ))}
-      </List>
+      {isLoading && (
+        <Card className={classes.loading}>
+          <CircularProgress />
+        </Card>
+      )}
+
+      {!isLoading && (
+        <List className={classes.list}>
+          {dogBreeds.map((item) => (
+            <ListItem key={item.image}>
+              <img
+                src={item.image}
+                alt={item.name}
+                className={classes.listItemImage}
+              />
+              <ListItemText>{capitalize(item.name)}</ListItemText>
+            </ListItem>
+          ))}
+        </List>
+      )}
     </Card>
   );
 };

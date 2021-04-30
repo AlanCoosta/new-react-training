@@ -1,8 +1,10 @@
 import Card from "@material-ui/core/Card";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
+
 import { shallow } from "enzyme";
 import capitalize from "lodash/capitalize";
 
@@ -15,6 +17,7 @@ describe("DogListView", () => {
   beforeEach(() => {
     DogListStyle.mockReturnValue({
       card: "card",
+      loading: "loading",
       list: "list",
       listItemImage: "listItemImage",
     });
@@ -32,7 +35,9 @@ describe("DogListView", () => {
   ];
 
   it("should render list from api", () => {
-    const wrapper = shallow(<DogListView dogBreeds={dogBreedsMock} />);
+    const wrapper = shallow(
+      <DogListView dogBreeds={dogBreedsMock} isLoading={false} />
+    );
 
     expect(
       wrapper.matchesElement(
@@ -59,13 +64,17 @@ describe("DogListView", () => {
   });
 
   it("should render two ListItem", () => {
-    const wrapper = shallow(<DogListView dogBreeds={dogBreedsMock} />);
+    const wrapper = shallow(
+      <DogListView dogBreeds={dogBreedsMock} isLoading={false} />
+    );
 
     expect(wrapper.find(ListItem)).toHaveLength(2);
   });
 
   it("should first ListItem to render Affenpinscher", () => {
-    const wrapper = shallow(<DogListView dogBreeds={dogBreedsMock} />);
+    const wrapper = shallow(
+      <DogListView dogBreeds={dogBreedsMock} isLoading={false} />
+    );
 
     const affenpinscherCapitalize = capitalize(dogBreedsMock[0].name);
 
@@ -75,10 +84,32 @@ describe("DogListView", () => {
   });
 
   it("should second ListItem to render Basenji", () => {
-    const wrapper = shallow(<DogListView dogBreeds={dogBreedsMock} />);
+    const wrapper = shallow(
+      <DogListView dogBreeds={dogBreedsMock} isLoading={false} />
+    );
 
     const basenjiCapitalize = capitalize(dogBreedsMock[1].name);
 
     expect(wrapper.find(ListItemText).at(1).text()).toEqual(basenjiCapitalize);
+  });
+
+  it("should render loading when communication with the api is called", () => {
+    const wrapper = shallow(
+      <DogListView dogBreeds={dogBreedsMock} isLoading={true} />
+    );
+
+    expect(
+      wrapper.matchesElement(
+        <Card className={"card"}>
+          <Typography variant="h4" gutterBottom>
+            DogListView
+          </Typography>
+
+          <Card className={"loading"}>
+            <CircularProgress />
+          </Card>
+        </Card>
+      )
+    ).toBe(true);
   });
 });
