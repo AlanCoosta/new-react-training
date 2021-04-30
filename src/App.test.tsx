@@ -1,9 +1,22 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { shallow } from "enzyme";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("App", () => {
+  it("should be render App Component", () => {
+    const wrapper = shallow(<App />);
+
+    expect(wrapper.exists()).toBe(true);
+  });
+
+  it("should be click in button and show alert", () => {
+    jest.spyOn(window, "alert").mockImplementation(() => jest.fn());
+
+    const wrapper = shallow(<App />);
+
+    const button = wrapper.find("button");
+    button.simulate("click");
+
+    expect(button.text()).toBe("Alert");
+    expect(window.alert).toHaveBeenCalledWith("Welcome to the React Training");
+  });
 });
