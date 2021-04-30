@@ -1,10 +1,17 @@
 import { useCallback } from "react";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 
 import CreateBeerForm from "./components/createBeerForm/CreateBeerForm";
 import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFormikForm";
 import DogDetails from "./components/dogDetails/DogDetails";
 
+import { AppStyles } from "./App.styles";
+import "./App.css";
+
 const App = () => {
+  const classes = AppStyles();
+
   const dogInfo = {
     name: "Golden Retriever",
     image:
@@ -16,12 +23,31 @@ const App = () => {
   }, []);
 
   return (
-    <div>
-      <button onClick={onAlert}>Alert</button>
+    <div className={classes.container}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={onAlert}
+        className={classes.button}
+      >
+        Alert
+      </Button>
 
-      <DogDetails name={dogInfo.name} image={dogInfo.image} />
-      <CreateBeerForm />
-      <CreateBeerFormikForm />
+      <Grid container spacing={3}>
+        <Grid item sm={6}>
+          <DogDetails name={dogInfo.name} image={dogInfo.image} />
+        </Grid>
+      </Grid>
+
+      <Grid container spacing={3}>
+        <Grid item sm={6}>
+          <CreateBeerForm />
+        </Grid>
+
+        <Grid item sm={6}>
+          <CreateBeerFormikForm />
+        </Grid>
+      </Grid>
     </div>
   );
 };

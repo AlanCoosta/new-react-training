@@ -7,6 +7,14 @@ import {
   FormikValues,
   FormikComputedProps,
 } from "formik";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Typography from "@material-ui/core/Typography";
 
 import CreateBeerFormikFormView from "./CreateBeerFormikFormView";
 import { typeBeerMock } from "../../mocks/typeBeerMock";
@@ -61,67 +69,89 @@ describe("CreateBeerFormikFormView", () => {
   it("should render CreateBeerFormikFormView with right props", () => {
     expect(
       formWrapper.matchesElement(
-        <form onSubmit={formikHandlers.handleSubmit}>
-          <h4>Create Beer Formik Form</h4>
+        <Card style={{ padding: 20 }}>
+          <form onSubmit={formikHandlers.handleSubmit}>
+            <Typography variant="h4" gutterBottom>
+              Create Beer Formik Form
+            </Typography>
 
-          <label htmlFor="name">Nome da bebida: </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={propsFormik.values.name}
-            onChange={formikHandlers.handleChange}
-            required
-          />
+            <TextField
+              name="name"
+              id="name"
+              value={propsFormik.values.name}
+              onChange={formikHandlers.handleChange}
+              label="Nome da bebida"
+              variant="outlined"
+              fullWidth
+              helperText={propsFormik.errors.name}
+            />
 
-          <br />
+            <br />
+            <br />
 
-          <label htmlFor="type">Tipo de bebida: </label>
-          <select
-            name="type"
-            id="type"
-            onChange={formikHandlers.handleChange}
-            value={propsFormik.values.type}
-            required
-          >
-            <option value="" disabled>
-              Selecione uma opção
-            </option>
-            {typeBeerMock.map((item) => (
-              <option key={item.id} value={item.value}>
-                {item.name}
-              </option>
-            ))}
-          </select>
+            <TextField
+              select
+              name="type"
+              id="type"
+              onChange={formikHandlers.handleChange}
+              value={propsFormik.values.type}
+              label="Tipo de bebida"
+              variant="outlined"
+              fullWidth
+              helperText={propsFormik.errors.type}
+            >
+              <MenuItem value="" disabled>
+                Selecione uma opção
+              </MenuItem>
 
-          <br />
+              {typeBeerMock.map((item) => (
+                <MenuItem key={item.id} value={item.value}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </TextField>
 
-          <label htmlFor="hasCorn">Tem cevada?: </label>
-          <input
-            type="checkbox"
-            name="hasCorn"
-            id="hasCorn"
-            onChange={formikHandlers.handleChange}
-            checked={propsFormik.values.hasCorn}
-            required
-          />
+            <br />
 
-          <br />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="hasCorn"
+                  id="hasCorn"
+                  onChange={formikHandlers.handleChange}
+                  checked={propsFormik.values.hasCorn}
+                  color="primary"
+                />
+              }
+              label="Tem cevada?"
+            />
 
-          <label htmlFor="ingredients">Ingredientes: </label>
-          <textarea
-            name="ingredients"
-            id="ingredients"
-            placeholder="Digite os ingredientes"
-            onChange={formikHandlers.handleChange}
-            value={propsFormik.values.ingredients}
-            required
-          />
+            <br />
 
-          <button type="submit" disabled={!formikComputedProps.dirty}>
-            Enviar
-          </button>
-        </form>
+            <label htmlFor="ingredients" style={{ display: "block" }}>
+              Ingredientes:{" "}
+            </label>
+            <TextareaAutosize
+              rowsMin={5}
+              name="ingredients"
+              id="ingredients"
+              placeholder="Digite os ingredientes"
+              onChange={formikHandlers.handleChange}
+              value={propsFormik.values.ingredients}
+              style={{ width: "100%", resize: "none" }}
+            />
+
+            <Button
+              type="submit"
+              disabled={!formikComputedProps.dirty}
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
+              Enviar
+            </Button>
+          </form>
+        </Card>
       )
     );
   });
@@ -129,8 +159,20 @@ describe("CreateBeerFormikFormView", () => {
   it("should render all list type of beer in select", () => {
     const SELECT_OPTION_DISABLED_COUNT = 1;
 
-    expect(formWrapper.find("select").children()).toHaveLength(
+    expect(formWrapper.find(MenuItem).children()).toHaveLength(
       SELECT_OPTION_DISABLED_COUNT + typeBeerMock.length
     );
+  });
+
+  it("should TextField beer name must be have the name prop declared as name", () => {
+    expect(formWrapper.find("#name").props().name).toBe("name");
+  });
+
+  it("should TextField type of beer must be have the name prop declared as type", () => {
+    expect(formWrapper.find("#type").props().name).toBe("type");
+  });
+
+  it("should TextField ingredients must be have the name prop declared as ingredients", () => {
+    expect(formWrapper.find("#ingredients").props().name).toBe("ingredients");
   });
 });

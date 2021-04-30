@@ -1,14 +1,25 @@
 import { Formik } from "formik";
 import * as yup from "yup";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Typography from "@material-ui/core/Typography";
 
 import { BeerFormData } from "./CreateBeerFormikForm.types";
 import { typeBeerMock } from "../../mocks/typeBeerMock";
+import { CreateBeerFormikFormStyle } from "./CreateBeerFormikFormView.styles";
 
 interface Props {
   onSubmit: (values: BeerFormData) => void;
 }
 
 const CreateBeerFormikFormView = ({ onSubmit }: Props) => {
+  const classes = CreateBeerFormikFormStyle();
+
   const validationSchema = yup.object().shape({
     name: yup.string().required("O nome da bebida é obrigatório"),
     type: yup.string().required("O tipo da bebida é obrigatório"),
@@ -21,69 +32,89 @@ const CreateBeerFormikFormView = ({ onSubmit }: Props) => {
       onSubmit={onSubmit}
       validationSchema={validationSchema}
     >
-      {({ values, handleChange, handleSubmit, dirty }) => (
-        <form onSubmit={handleSubmit}>
-          <h4>Create Beer Formik Form</h4>
+      {({ values, handleChange, handleSubmit, dirty, errors }) => (
+        <Card className={classes.card}>
+          <form onSubmit={handleSubmit}>
+            <Typography variant="h4" gutterBottom>
+              Create Beer Formik Form
+            </Typography>
 
-          <label htmlFor="name">Nome da bebida: </label>
-          <input
-            type="text"
-            name="name"
-            id="name"
-            value={values.name}
-            onChange={handleChange}
-            required
-          />
+            <TextField
+              name="name"
+              id="name"
+              value={values.name}
+              onChange={handleChange}
+              label="Nome da bebida"
+              variant="outlined"
+              fullWidth
+              helperText={errors.name}
+            />
 
-          <br />
+            <br />
+            <br />
 
-          <label htmlFor="type">Tipo de bebida: </label>
-          <select
-            name="type"
-            id="type"
-            onChange={handleChange}
-            value={values.type}
-            required
-          >
-            <option value="" disabled>
-              Selecione uma opção
-            </option>
+            <TextField
+              select
+              name="type"
+              id="type"
+              onChange={handleChange}
+              value={values.type}
+              label="Tipo de bebida"
+              variant="outlined"
+              fullWidth
+              helperText={errors.type}
+            >
+              <MenuItem value="" disabled>
+                Selecione uma opção
+              </MenuItem>
+              {typeBeerMock.map((item) => (
+                <MenuItem key={item.id} value={item.value}>
+                  {item.name}
+                </MenuItem>
+              ))}
+            </TextField>
 
-            {typeBeerMock.map((item) => (
-              <option key={item.id} value={item.value}>
-                {item.name}
-              </option>
-            ))}
-          </select>
+            <br />
 
-          <br />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  name="hasCorn"
+                  id="hasCorn"
+                  onChange={handleChange}
+                  checked={values.hasCorn}
+                  color="primary"
+                />
+              }
+              label="Tem cevada?"
+            />
 
-          <label htmlFor="hasCorn">Tem cevada?: </label>
-          <input
-            type="checkbox"
-            name="hasCorn"
-            id="hasCorn"
-            onChange={handleChange}
-            checked={values.hasCorn}
-            required
-          />
+            <br />
 
-          <br />
+            <label htmlFor="ingredients" className={classes.label}>
+              Ingredientes:{" "}
+            </label>
+            <TextareaAutosize
+              rowsMin={5}
+              name="ingredients"
+              id="ingredients"
+              placeholder="Digite os ingredientes"
+              onChange={handleChange}
+              value={values.ingredients}
+              className={classes.textarea}
+            />
 
-          <label htmlFor="ingredients">Ingredientes: </label>
-          <textarea
-            name="ingredients"
-            id="ingredients"
-            placeholder="Digite os ingredientes"
-            onChange={handleChange}
-            value={values.ingredients}
-            required
-          />
-
-          <button type="submit" disabled={!dirty}>
-            Enviar
-          </button>
-        </form>
+            <Button
+              type="submit"
+              disabled={!dirty}
+              variant="contained"
+              color="primary"
+              fullWidth
+            >
+              Enviar
+            </Button>
+          </form>
+        </Card>
       )}
     </Formik>
   );

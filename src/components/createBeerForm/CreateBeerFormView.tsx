@@ -1,4 +1,14 @@
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
+import TextareaAutosize from "@material-ui/core/TextareaAutosize";
+import Typography from "@material-ui/core/Typography";
+
 import { typeBeerMock } from "../../mocks/typeBeerMock";
+import { CreateBeerFormStyle } from "./CreateBeerFormView.styles";
 
 interface Props {
   name: string;
@@ -23,62 +33,91 @@ const CreateBeerFormView = ({
   onChangeCheckBox,
   onSubmit,
 }: Props) => {
-  return (
-    <div>
-      <form onSubmit={onSubmit}>
-        <h4>Create Beer Form</h4>
+  const classes = CreateBeerFormStyle();
 
-        <label htmlFor="name">Nome da bebida: </label>
-        <input
-          type="text"
+  return (
+    <Card className={classes.card}>
+      <form onSubmit={onSubmit}>
+        <Typography variant="h4" gutterBottom>
+          Create Beer Form
+        </Typography>
+
+        <TextField
           name="name"
           id="name"
           value={name}
           onChange={onChangeText}
+          label="Nome da bebida"
+          variant="outlined"
+          fullWidth
         />
 
         <br />
+        <br />
 
-        <label htmlFor="type">Tipo de bebida: </label>
-        <select name="type" id="type" onChange={onChangeText} value={type}>
-          <option value="" disabled>
+        <TextField
+          select
+          name="type"
+          id="type"
+          onChange={onChangeText}
+          value={type}
+          label="Tipo de bebida"
+          variant="outlined"
+          fullWidth
+        >
+          <MenuItem value="" disabled>
             Selecione uma opção
-          </option>
-
+          </MenuItem>
           {typeBeerMock.map((item) => (
-            <option key={item.id} value={item.value}>
+            <MenuItem key={item.id} value={item.value}>
               {item.name}
-            </option>
+            </MenuItem>
           ))}
-        </select>
+        </TextField>
 
         <br />
 
-        <label htmlFor="hasCorn">Tem cevada?: </label>
-        <input
-          type="checkbox"
-          name="hasCorn"
-          id="hasCorn"
-          onChange={onChangeCheckBox}
-          checked={hasCorn}
+        <FormControlLabel
+          control={
+            <Checkbox
+              name="hasCorn"
+              id="hasCorn"
+              onChange={onChangeCheckBox}
+              checked={hasCorn}
+              color="primary"
+            />
+          }
+          label="Tem cevada?"
         />
 
         <br />
 
-        <label htmlFor="ingredients">Ingredientes: </label>
-        <textarea
+        <label htmlFor="ingredients" className={classes.label}>
+          Ingredientes:{" "}
+        </label>
+        <TextareaAutosize
+          rowsMin={5}
           name="ingredients"
           id="ingredients"
           placeholder="Digite os ingredientes"
           onChange={onChangeText}
           value={ingredients}
+          className={classes.textarea}
         />
 
-        <button type="submit" disabled={!name || !type || !ingredients}>
+        <br />
+
+        <Button
+          type="submit"
+          disabled={!name || !type || !ingredients}
+          variant="contained"
+          color="primary"
+          fullWidth
+        >
           Enviar
-        </button>
+        </Button>
       </form>
-    </div>
+    </Card>
   );
 };
 
