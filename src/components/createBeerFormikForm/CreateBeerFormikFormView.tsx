@@ -1,4 +1,5 @@
 import { Formik } from "formik";
+import * as yup from "yup";
 
 import { BeerFormData } from "./CreateBeerFormikForm.types";
 import { typeBeerMock } from "../../mocks/typeBeerMock";
@@ -8,10 +9,17 @@ interface Props {
 }
 
 const CreateBeerFormikFormView = ({ onSubmit }: Props) => {
+  const validationSchema = yup.object().shape({
+    name: yup.string().required("O nome da bebida é obrigatório"),
+    type: yup.string().required("O tipo da bebida é obrigatório"),
+    ingredients: yup.string().required("O ingrediente é obrigatório"),
+  });
+
   return (
     <Formik
       initialValues={{ name: "", type: "", hasCorn: true, ingredients: "" }}
       onSubmit={onSubmit}
+      validationSchema={validationSchema}
     >
       {({ values, handleChange, handleSubmit, dirty }) => (
         <form onSubmit={handleSubmit}>
@@ -40,6 +48,7 @@ const CreateBeerFormikFormView = ({ onSubmit }: Props) => {
             <option value="" disabled>
               Selecione uma opção
             </option>
+
             {typeBeerMock.map((item) => (
               <option key={item.id} value={item.value}>
                 {item.name}
