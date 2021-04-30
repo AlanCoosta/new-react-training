@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import CreateBeerForm from "./components/createBeerForm/CreateBeerForm";
 import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFormikForm";
 import DogDetails from "./components/dogDetails/DogDetails";
+import DogList from "./components/dogList/DogList";
 
 import { AppStyles } from "./App.styles";
 import "./App.css";
@@ -36,6 +37,10 @@ const App = () => {
       <Grid container spacing={3}>
         <Grid item sm={6}>
           <DogDetails name={dogInfo.name} image={dogInfo.image} />
+        </Grid>
+
+        <Grid item sm={6}>
+          <DogList />
         </Grid>
       </Grid>
 
