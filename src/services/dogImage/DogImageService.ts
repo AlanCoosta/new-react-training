@@ -1,22 +1,17 @@
+import axios from "axios";
+
 export const API = "https://dog.ceo/api/breed";
 
 interface Props {
   breed: string;
 }
 
-interface ResponseImage {
-  message: string;
-  status: string;
-}
-
-export const getImageBreed = async ({
-  breed,
-}: Props): Promise<ResponseImage> => {
+export const getImageBreed = async ({ breed }: Props): Promise<string> => {
   try {
     const url = `${API}/${breed}/images/random`;
-    const response = await fetch(url);
+    const response = await axios.get(url);
 
-    return response.json();
+    return response.data.message;
   } catch (error) {
     throw error;
   }

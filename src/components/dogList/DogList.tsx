@@ -17,9 +17,7 @@ const DogList = () => {
     const formatBreeds: DogBreed[] = await Promise.all(
       breedsNames.map(
         async (item: string): Promise<DogBreed> => {
-          const imageBreed: string = await getImageBreed({ breed: item }).then(
-            (data) => data.message
-          );
+          const imageBreed = await getImageBreed({ breed: item });
 
           return {
             name: item,
@@ -28,7 +26,6 @@ const DogList = () => {
         }
       )
     );
-
     setDogBreeds(formatBreeds);
   };
   useEffect(() => {
