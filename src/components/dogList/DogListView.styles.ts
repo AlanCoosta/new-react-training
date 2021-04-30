@@ -12,5 +12,10 @@ export const DogListStyle = makeStyles((theme: Theme) =>
       maxHeight: 300,
       overflow: "auto",
     },
+    listItemImage: {
+      width: 100,
+      height: 100,
+      objectFit: "cover",
+    },
   })
 );

@@ -16,10 +16,20 @@ describe("DogListView", () => {
     DogListStyle.mockReturnValue({
       card: "card",
       list: "list",
+      listItemImage: "listItemImage",
     });
   });
 
-  const dogBreedsMock = ["affenpinscher", "basenji"];
+  const dogBreedsMock = [
+    {
+      name: "affenpinscher",
+      image: "https://images.dog.ceo/breeds/affenpinscher/n02110627_13782.jpg",
+    },
+    {
+      name: "basenji",
+      image: "https://images.dog.ceo/breeds/basenji/n02110806_238.jpg",
+    },
+  ];
 
   it("should render list from api", () => {
     const wrapper = shallow(<DogListView dogBreeds={dogBreedsMock} />);
@@ -33,8 +43,13 @@ describe("DogListView", () => {
 
           <List className={"list"}>
             {dogBreedsMock.map((item) => (
-              <ListItem key={item}>
-                <ListItemText>{capitalize(item)}</ListItemText>
+              <ListItem key={item.image}>
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className={"listItemImage"}
+                />
+                <ListItemText>{capitalize(item.name)}</ListItemText>
               </ListItem>
             ))}
           </List>
@@ -52,7 +67,7 @@ describe("DogListView", () => {
   it("should first ListItem to render Affenpinscher", () => {
     const wrapper = shallow(<DogListView dogBreeds={dogBreedsMock} />);
 
-    const affenpinscherCapitalize = capitalize(dogBreedsMock[0]);
+    const affenpinscherCapitalize = capitalize(dogBreedsMock[0].name);
 
     expect(wrapper.find(ListItemText).first().text()).toEqual(
       affenpinscherCapitalize
@@ -62,7 +77,7 @@ describe("DogListView", () => {
   it("should second ListItem to render Basenji", () => {
     const wrapper = shallow(<DogListView dogBreeds={dogBreedsMock} />);
 
-    const basenjiCapitalize = capitalize(dogBreedsMock[1]);
+    const basenjiCapitalize = capitalize(dogBreedsMock[1].name);
 
     expect(wrapper.find(ListItemText).at(1).text()).toEqual(basenjiCapitalize);
   });
