@@ -15,7 +15,6 @@ describe("DogDetails", () => {
     const wrapper = shallow(
       <DogDetails name={dogBreedMock.name} image={dogBreedMock.image} />
     );
-
     expect(wrapper.type()).toBe(DogDetailsView);
     expect(wrapper.props()).toMatchObject({
       name: "Golden Retriever",
@@ -26,11 +25,8 @@ describe("DogDetails", () => {
 
   it("should render alert when onBark function is called", () => {
     window.alert = jest.fn();
-
     const wrapper = shallow(<DogDetails />);
-
     wrapper.invoke("onBark")("");
-
     expect(window.alert).toHaveBeenCalledWith("Woof! Woof!");
   });
 
@@ -42,7 +38,6 @@ describe("DogDetails", () => {
         onBark={onBarkMock}
       />
     );
-
     wrapper.invoke("onScold")();
     expect(wrapper.prop("scoldCounter")).toBe(1);
   });
