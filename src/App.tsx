@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 
 import CreateBeerForm from "./components/createBeerForm/CreateBeerForm";
+import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFormikForm";
 import DogDetails from "./components/dogDetails/DogDetails";
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
 
       <DogDetails name={dogInfo.name} image={dogInfo.image} />
       <CreateBeerForm />
+      <CreateBeerFormikForm />
     </div>
   );
 };
