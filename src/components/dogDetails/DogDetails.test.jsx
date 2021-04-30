@@ -2,7 +2,7 @@ import { shallow } from "enzyme";
 import DogDetails from "./DogDetails";
 import DogDetailsView from "./DogDetailsView";
 
-const dogInfo = {
+const dogBreedMock = {
   name: "Golden Retriever",
   image:
     "https://www.petlove.com.br/static/pets/dog/48881/hd_1531952446-photo.jpg",
@@ -11,7 +11,7 @@ const dogInfo = {
 describe("DogDetails", () => {
   it("should be render DogDetails with the right props", () => {
     const wrapper = shallow(
-      <DogDetails name={dogInfo.name} image={dogInfo.image} />
+      <DogDetails name={dogBreedMock.name} image={dogBreedMock.image} />
     );
 
     expect(wrapper.type()).toBe(DogDetailsView);
