@@ -23,6 +23,8 @@ describe("DogListView", () => {
     });
   });
 
+  const handleSelectDogMock = jest.fn((f) => f);
+
   const dogBreedsMock = [
     {
       name: "affenpinscher",
@@ -33,10 +35,19 @@ describe("DogListView", () => {
       image: "https://images.dog.ceo/breeds/basenji/n02110806_238.jpg",
     },
   ];
+  const dogBreedSelectedEmpty = {
+    name: "",
+    image: "",
+  };
 
   it("should render list from api", () => {
     const wrapper = shallow(
-      <DogListView dogBreeds={dogBreedsMock} isLoading={false} />
+      <DogListView
+        dogBreeds={dogBreedsMock}
+        isLoading={false}
+        dogSelected={dogBreedSelectedEmpty}
+        handleSelectDog={handleSelectDogMock}
+      />
     );
 
     expect(
@@ -65,7 +76,12 @@ describe("DogListView", () => {
 
   it("should render two ListItem", () => {
     const wrapper = shallow(
-      <DogListView dogBreeds={dogBreedsMock} isLoading={false} />
+      <DogListView
+        dogBreeds={dogBreedsMock}
+        isLoading={false}
+        dogSelected={dogBreedSelectedEmpty}
+        handleSelectDog={handleSelectDogMock}
+      />
     );
 
     expect(wrapper.find(ListItem)).toHaveLength(2);
@@ -73,7 +89,12 @@ describe("DogListView", () => {
 
   it("should first ListItem to render Affenpinscher", () => {
     const wrapper = shallow(
-      <DogListView dogBreeds={dogBreedsMock} isLoading={false} />
+      <DogListView
+        dogBreeds={dogBreedsMock}
+        isLoading={false}
+        dogSelected={dogBreedSelectedEmpty}
+        handleSelectDog={handleSelectDogMock}
+      />
     );
 
     const affenpinscherCapitalize = capitalize(dogBreedsMock[0].name);
@@ -85,7 +106,12 @@ describe("DogListView", () => {
 
   it("should second ListItem to render Basenji", () => {
     const wrapper = shallow(
-      <DogListView dogBreeds={dogBreedsMock} isLoading={false} />
+      <DogListView
+        dogBreeds={dogBreedsMock}
+        isLoading={false}
+        dogSelected={dogBreedSelectedEmpty}
+        handleSelectDog={handleSelectDogMock}
+      />
     );
 
     const basenjiCapitalize = capitalize(dogBreedsMock[1].name);
@@ -95,7 +121,12 @@ describe("DogListView", () => {
 
   it("should render loading when communication with the api is called", () => {
     const wrapper = shallow(
-      <DogListView dogBreeds={dogBreedsMock} isLoading={true} />
+      <DogListView
+        dogBreeds={dogBreedsMock}
+        isLoading={true}
+        dogSelected={dogBreedSelectedEmpty}
+        handleSelectDog={handleSelectDogMock}
+      />
     );
 
     expect(
@@ -111,5 +142,20 @@ describe("DogListView", () => {
         </Card>
       )
     ).toBe(true);
+  });
+
+  it("should select a breed", () => {
+    const wrapper = shallow(
+      <DogListView
+        dogBreeds={dogBreedsMock}
+        isLoading={false}
+        dogSelected={dogBreedsMock[0]}
+        handleSelectDog={handleSelectDogMock}
+      />
+    );
+
+    wrapper.find(ListItem).first().simulate("click");
+
+    expect(handleSelectDogMock).toHaveBeenCalled();
   });
 });

@@ -4,20 +4,13 @@ import Grid from "@material-ui/core/Grid";
 
 import CreateBeerForm from "./components/createBeerForm/CreateBeerForm";
 import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFormikForm";
-import DogDetails from "./components/dogDetails/DogDetails";
-import DogList from "./components/dogList/DogList";
+import DogWrapper from "./components/dogWrapper/DogWrapper";
 
 import { AppStyles } from "./App.styles";
 import "./App.css";
 
 const App = () => {
   const classes = AppStyles();
-
-  const dogInfo = {
-    name: "Golden Retriever",
-    image:
-      "https://www.petlove.com.br/static/pets/dog/48881/hd_1531952446-photo.jpg",
-  };
 
   const onAlert = useCallback(() => {
     alert("Welcome to the React Training");
@@ -34,15 +27,7 @@ const App = () => {
         Alert
       </Button>
 
-      <Grid container spacing={3}>
-        <Grid item sm={6}>
-          <DogDetails name={dogInfo.name} image={dogInfo.image} />
-        </Grid>
-
-        <Grid item sm={6}>
-          <DogList />
-        </Grid>
-      </Grid>
+      <DogWrapper />
 
       <Grid container spacing={3}>
         <Grid item sm={6}>

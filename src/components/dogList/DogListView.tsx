@@ -12,9 +12,16 @@ import { DogListStyle } from "./DogListView.styles";
 interface Props {
   dogBreeds: DogBreed[];
   isLoading: boolean;
+  dogSelected: DogBreed;
+  handleSelectDog: (dog: DogBreed) => void;
 }
 
-const DogListView = ({ dogBreeds, isLoading }: Props) => {
+const DogListView = ({
+  dogBreeds,
+  isLoading,
+  dogSelected,
+  handleSelectDog,
+}: Props) => {
   const classes = DogListStyle();
 
   return (
@@ -32,13 +39,23 @@ const DogListView = ({ dogBreeds, isLoading }: Props) => {
       {!isLoading && (
         <List className={classes.list}>
           {dogBreeds.map((item) => (
-            <ListItem key={item.image}>
+            <ListItem
+              key={item.image}
+              onClick={() => handleSelectDog(item)}
+              className={
+                item.name === dogSelected?.name
+                  ? classes.listItemSelected
+                  : classes.listItem
+              }
+            >
               <img
                 src={item.image}
                 alt={item.name}
                 className={classes.listItemImage}
               />
-              <ListItemText>{capitalize(item.name)}</ListItemText>
+              <ListItemText className={classes.listItemText}>
+                {capitalize(item.name)}
+              </ListItemText>
             </ListItem>
           ))}
         </List>
