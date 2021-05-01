@@ -1,6 +1,7 @@
 import { shallow } from "enzyme";
 
 import DogDetails from "../dogDetails/DogDetails";
+import DogFilter from "../dogFilter/DogFilter";
 import DogList from "../dogList/DogList";
 import DogWrapperView from "./DogWrapperView";
 import { DogWrapperStyle } from "./DogWrapperView.styles";
@@ -25,6 +26,9 @@ describe("DogWrapperView", () => {
   ];
 
   const handleSelectDogMock = jest.fn();
+  const handleSelectLetterMock = jest.fn();
+  const isLoadingMock = false;
+  const onScoldMock = jest.fn();
 
   beforeEach(() => {
     DogWrapperStyle.mockReturnValue({
@@ -45,17 +49,11 @@ describe("DogWrapperView", () => {
     expect(
       wrapper.matchesElement(
         <div className={"container"}>
-          <DogDetails
-            name={dogBreedSelectedEmpty.name}
-            image={dogBreedSelectedEmpty.name}
-          />
+          <DogDetails />
 
-          <DogList
-            dogBreeds={dogBreedsMock}
-            isLoading={false}
-            dogSelected={dogBreedSelectedEmpty}
-            handleSelectDog={handleSelectDogMock}
-          />
+          <DogList />
+
+          <DogFilter />
         </div>
       )
     ).toBe(true);

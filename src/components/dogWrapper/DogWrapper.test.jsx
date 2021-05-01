@@ -99,7 +99,9 @@ describe("DogWrapper", () => {
     const wrapper = shallow(<DogWrapper />);
 
     await wrapper.invoke("onScold")(dogBreedSelectedMock.name);
+    await wrapper.invoke("handleSelectLetter")("a");
 
     expect(React.useState).toHaveBeenCalled();
+    expect(wrapper.prop("letterSelected")).toBe("a");
   });
 });

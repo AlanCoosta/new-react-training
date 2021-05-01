@@ -27,6 +27,8 @@ const dogBreedsMock = [
   },
 ];
 
+const dogBreedsEmptyMock = [];
+
 const dogBreedSelectedMock = {
   name: "affenpinscher",
   image: "https://images.dog.ceo/breeds/affenpinscher/n02110627_13782.jpg",
@@ -44,6 +46,7 @@ describe("DogListView", () => {
     DogListStyle.mockReturnValue({
       card: "card",
       loading: "loading",
+      listEmpty: "listEmpty",
       list: "list",
       listItem: "listItem",
       listItemSelected: "listItemSelected",
@@ -183,5 +186,31 @@ describe("DogListView", () => {
     wrapper.find(ListItem).first().simulate("click");
 
     expect(handleSelectDogMock).toHaveBeenCalled();
+  });
+
+  it("should render listEmpty if not have any breed", () => {
+    const wrapper = shallow(
+      <DogListView
+        dogBreeds={dogBreedsEmptyMock}
+        isLoading={false}
+        dogSelected={dogBreedSelectedMock}
+        handleSelectDog={handleSelectDogMock}
+      />
+    );
+
+    expect(
+      wrapper.matchesElement(
+        <Card className={"card"}>
+          <Typography variant="h4" gutterBottom>
+            DogListView
+          </Typography>
+
+          <div className={"listEmpty"}>
+            <p>No one breed with this initial letter.</p>
+            <p>Please select another breed.</p>
+          </div>
+        </Card>
+      )
+    ).toBe(true);
   });
 });

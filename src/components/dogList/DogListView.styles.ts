@@ -13,6 +13,15 @@ export const DogListStyle = makeStyles((theme: Theme) =>
       width: "100%",
       height: "100%",
     },
+    listEmpty: {
+      background: "#fff",
+      height: 400,
+
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
     list: {
       background: "#fff",
       height: "100%",

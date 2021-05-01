@@ -36,34 +36,40 @@ const DogListView = ({
         </Card>
       )}
 
-      {!isLoading && (
-        <List className={classes.list}>
-          {dogBreeds.map((item) => (
-            <ListItem
-              key={item.image}
-              onClick={() => handleSelectDog(item)}
-              className={
-                item.name === dogSelected?.name
-                  ? classes.listItemSelected
-                  : classes.listItem
-              }
-            >
-              <img
-                src={item.image}
-                alt={item.name}
-                className={classes.listItemImage}
-              />
-              <ListItemText className={classes.listItemText}>
-                {capitalize(item.name)}
-              </ListItemText>
+      {!isLoading &&
+        (dogBreeds.length <= 0 ? (
+          <div className={classes.listEmpty}>
+            <p>No one breed with this initial letter.</p>
+            <p>Please select another breed.</p>
+          </div>
+        ) : (
+          <List className={classes.list}>
+            {dogBreeds.map((item) => (
+              <ListItem
+                key={item.image}
+                onClick={() => handleSelectDog(item)}
+                className={
+                  item.name === dogSelected?.name
+                    ? classes.listItemSelected
+                    : classes.listItem
+                }
+              >
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className={classes.listItemImage}
+                />
+                <ListItemText className={classes.listItemText}>
+                  {capitalize(item.name)}
+                </ListItemText>
 
-              <ListItemText className={classes.listItemText}>
-                Counter: {item.counter}
-              </ListItemText>
-            </ListItem>
-          ))}
-        </List>
-      )}
+                <ListItemText className={classes.listItemText}>
+                  Counter: {item.counter}
+                </ListItemText>
+              </ListItem>
+            ))}
+          </List>
+        ))}
     </Card>
   );
 };

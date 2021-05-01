@@ -10,6 +10,7 @@ const DogWrapper = () => {
   const [dogBreeds, setDogBreeds] = useState<DogBreed[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [dogSelected, setDogSelected] = useState<DogBreed>({} as DogBreed);
+  const [letterSelected, setLetterSelected] = useState("");
 
   const listAllBreeds = async () => {
     try {
@@ -70,6 +71,10 @@ const DogWrapper = () => {
     setDogSelected(dog);
   }, []);
 
+  const handleSelectLetter = useCallback((letter: string) => {
+    setLetterSelected(letter);
+  }, []);
+
   return (
     <DogWrapperView
       dogBreeds={dogBreeds}
@@ -77,6 +82,8 @@ const DogWrapper = () => {
       dogSelected={dogSelected}
       handleSelectDog={handleSelectDog}
       onScold={onScold}
+      letterSelected={letterSelected}
+      handleSelectLetter={handleSelectLetter}
     />
   );
 };
