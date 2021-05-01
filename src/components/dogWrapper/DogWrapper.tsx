@@ -25,6 +25,7 @@ const DogWrapper = () => {
             return {
               name: item,
               image: imageBreed,
+              counter: 0,
             };
           }
         )
@@ -37,6 +38,29 @@ const DogWrapper = () => {
       setIsLoading(false);
     }
   };
+
+  const onScold = useCallback(
+    (name: string) => {
+      if (name === "") {
+        alert("Please, select a breed in DogList!");
+
+        return;
+      }
+
+      const breedIndex = dogBreeds.findIndex((item) => item.name === name);
+
+      const result = {
+        name: dogBreeds[breedIndex].name,
+        image: dogBreeds[breedIndex].image,
+        counter: dogBreeds[breedIndex].counter + 1,
+      };
+
+      dogBreeds[breedIndex] = result;
+
+      setDogBreeds([...dogBreeds]);
+    },
+    [dogBreeds]
+  );
 
   useEffect(() => {
     listAllBreeds();
@@ -52,6 +76,7 @@ const DogWrapper = () => {
       isLoading={isLoading}
       dogSelected={dogSelected}
       handleSelectDog={handleSelectDog}
+      onScold={onScold}
     />
   );
 };

@@ -1,5 +1,6 @@
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import { capitalize } from "lodash";
 
 import { DogDetailsStyle } from "./DogDetailsView.styles";
 
@@ -7,23 +8,16 @@ interface Props {
   name: string;
   image: string;
   onBark: () => void;
-  onScold: () => void;
-  scoldCounter: number;
+  onScold: (name: string) => void;
 }
 
-const DogDetailsView = ({
-  name,
-  image,
-  onBark,
-  onScold,
-  scoldCounter,
-}: Props) => {
+const DogDetailsView = ({ name, image, onBark, onScold }: Props) => {
   const classes = DogDetailsStyle();
 
   return (
     <div className={classes.container}>
       <Typography variant="h2" gutterBottom>
-        {name}
+        {name === "" ? "Name of breed" : capitalize(name)}
       </Typography>
 
       <img src={image} alt={name} className={classes.image} />
@@ -38,12 +32,9 @@ const DogDetailsView = ({
         Bark!
       </Button>
 
-      <Typography variant="h4" gutterBottom>
-        Scold counter: <b>{scoldCounter}</b>{" "}
-        <Button onClick={onScold} variant="contained" color="primary">
-          Scold!
-        </Button>
-      </Typography>
+      <Button onClick={() => onScold(name)} variant="contained" color="primary">
+        Scold!
+      </Button>
     </div>
   );
 };

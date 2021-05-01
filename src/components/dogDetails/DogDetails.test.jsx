@@ -3,12 +3,10 @@ import DogDetails from "./DogDetails";
 import DogDetailsView from "./DogDetailsView";
 
 const dogBreedMock = {
-  name: "Golden Retriever",
+  name: "affenpinscher",
   image:
     "https://www.petlove.com.br/static/pets/dog/48881/hd_1531952446-photo.jpg",
 };
-
-const onBarkMock = jest.fn();
 
 describe("DogDetails", () => {
   it("should be render DogDetails with the right props", () => {
@@ -17,7 +15,7 @@ describe("DogDetails", () => {
     );
     expect(wrapper.type()).toBe(DogDetailsView);
     expect(wrapper.props()).toMatchObject({
-      name: "Golden Retriever",
+      name: "affenpinscher",
       image:
         "https://www.petlove.com.br/static/pets/dog/48881/hd_1531952446-photo.jpg",
     });
@@ -28,17 +26,5 @@ describe("DogDetails", () => {
     const wrapper = shallow(<DogDetails />);
     wrapper.invoke("onBark")("");
     expect(window.alert).toHaveBeenCalledWith("Woof! Woof!");
-  });
-
-  it("should be counter", () => {
-    const wrapper = shallow(
-      <DogDetails
-        name={dogBreedMock.name}
-        image={dogBreedMock.image}
-        onBark={onBarkMock}
-      />
-    );
-    wrapper.invoke("onScold")();
-    expect(wrapper.prop("scoldCounter")).toBe(1);
   });
 });

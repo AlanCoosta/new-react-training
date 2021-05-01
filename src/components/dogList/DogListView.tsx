@@ -56,6 +56,10 @@ const DogListView = ({
               <ListItemText className={classes.listItemText}>
                 {capitalize(item.name)}
               </ListItemText>
+
+              <ListItemText className={classes.listItemText}>
+                Counter: {item.counter}
+              </ListItemText>
             </ListItem>
           ))}
         </List>

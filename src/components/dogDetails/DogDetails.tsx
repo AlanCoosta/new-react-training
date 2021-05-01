@@ -1,21 +1,16 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 import DogDetailsView from "./DogDetailsView";
 
 interface Props {
   name: string;
   image: string;
+  onScold: (name: string) => void;
 }
 
-const DogDetails = ({ name, image }: Props) => {
-  const [scoldCounter, setScoldCounter] = useState(0);
-
+const DogDetails = ({ name, image, onScold }: Props) => {
   const onBark = useCallback(() => {
     alert("Woof! Woof!");
-  }, []);
-
-  const onScold = useCallback(() => {
-    setScoldCounter((prevState) => prevState + 1);
   }, []);
 
   return (
@@ -24,7 +19,6 @@ const DogDetails = ({ name, image }: Props) => {
       image={image}
       onBark={onBark}
       onScold={onScold}
-      scoldCounter={scoldCounter}
     />
   );
 };

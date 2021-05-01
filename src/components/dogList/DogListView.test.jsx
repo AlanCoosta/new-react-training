@@ -12,6 +12,32 @@ import DogListView from "./DogListView";
 import { DogListStyle } from "./DogListView.styles";
 
 jest.mock("./DogListView.styles.ts");
+const handleSelectDogMock = jest.fn((f) => f);
+
+const dogBreedsMock = [
+  {
+    name: "affenpinscher",
+    image: "https://images.dog.ceo/breeds/affenpinscher/n02110627_13782.jpg",
+    counter: 0,
+  },
+  {
+    name: "basenji",
+    image: "https://images.dog.ceo/breeds/basenji/n02110806_238.jpg",
+    counter: 0,
+  },
+];
+
+const dogBreedSelectedMock = {
+  name: "affenpinscher",
+  image: "https://images.dog.ceo/breeds/affenpinscher/n02110627_13782.jpg",
+  counter: 0,
+};
+
+const dogBreedSelectedEmpty = {
+  name: "",
+  image: "",
+  counter: 0,
+};
 
 describe("DogListView", () => {
   beforeEach(() => {
@@ -19,33 +45,19 @@ describe("DogListView", () => {
       card: "card",
       loading: "loading",
       list: "list",
+      listItem: "listItem",
+      listItemSelected: "listItemSelected",
       listItemImage: "listItemImage",
+      listItemText: "listItemText",
     });
   });
-
-  const handleSelectDogMock = jest.fn((f) => f);
-
-  const dogBreedsMock = [
-    {
-      name: "affenpinscher",
-      image: "https://images.dog.ceo/breeds/affenpinscher/n02110627_13782.jpg",
-    },
-    {
-      name: "basenji",
-      image: "https://images.dog.ceo/breeds/basenji/n02110806_238.jpg",
-    },
-  ];
-  const dogBreedSelectedEmpty = {
-    name: "",
-    image: "",
-  };
 
   it("should render list from api", () => {
     const wrapper = shallow(
       <DogListView
         dogBreeds={dogBreedsMock}
         isLoading={false}
-        dogSelected={dogBreedSelectedEmpty}
+        dogSelected={dogBreedSelectedMock}
         handleSelectDog={handleSelectDogMock}
       />
     );
@@ -59,13 +71,27 @@ describe("DogListView", () => {
 
           <List className={"list"}>
             {dogBreedsMock.map((item) => (
-              <ListItem key={item.image}>
+              <ListItem
+                key={item.image}
+                onClick={handleSelectDogMock(item)}
+                className={
+                  item.name === dogBreedSelectedMock?.name
+                    ? "listItemSelected"
+                    : "listItem"
+                }
+              >
                 <img
                   src={item.image}
                   alt={item.name}
                   className={"listItemImage"}
                 />
-                <ListItemText>{capitalize(item.name)}</ListItemText>
+                <ListItemText className={"listItemText"}>
+                  {capitalize(item.name)}
+                </ListItemText>
+
+                <ListItemText className={"listItemText"}>
+                  Counter: {item.counter}
+                </ListItemText>
               </ListItem>
             ))}
           </List>
@@ -116,7 +142,7 @@ describe("DogListView", () => {
 
     const basenjiCapitalize = capitalize(dogBreedsMock[1].name);
 
-    expect(wrapper.find(ListItemText).at(1).text()).toEqual(basenjiCapitalize);
+    expect(wrapper.find(ListItemText).at(2).text()).toEqual(basenjiCapitalize);
   });
 
   it("should render loading when communication with the api is called", () => {

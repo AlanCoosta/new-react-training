@@ -8,6 +8,7 @@ interface Props {
   isLoading: boolean;
   dogSelected: DogBreed;
   handleSelectDog: (dog: DogBreed) => void;
+  onScold: (name: string) => void;
 }
 
 const DogWrapperView = ({
@@ -15,12 +16,17 @@ const DogWrapperView = ({
   isLoading,
   dogSelected,
   handleSelectDog,
+  onScold,
 }: Props) => {
   const classes = DogWrapperStyle();
 
   return (
     <div className={classes.container}>
-      <DogDetails name={dogSelected.name} image={dogSelected.image} />
+      <DogDetails
+        name={dogSelected.name}
+        image={dogSelected.image}
+        onScold={onScold}
+      />
 
       <DogList
         dogBreeds={dogBreeds}
