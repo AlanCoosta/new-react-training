@@ -4,7 +4,9 @@ import Grid from "@material-ui/core/Grid";
 
 import CreateBeerForm from "./components/createBeerForm/CreateBeerForm";
 import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFormikForm";
-import DogWrapper from "./components/dogWrapper/DogWrapper";
+import DogDetails from "./components/dogDetails/DogDetails";
+import DogList from "./components/dogList/DogList";
+import DogFilter from "./components/dogFilter/DogFilter";
 
 import { AppStyles } from "./App.styles";
 import "./App.css";
@@ -27,7 +29,19 @@ const App = () => {
         Alert
       </Button>
 
-      <DogWrapper />
+      <Grid container spacing={3}>
+        <Grid item sm={6}>
+          <DogDetails />
+        </Grid>
+
+        <Grid item sm={6}>
+          <DogList />
+        </Grid>
+
+        <Grid item xs={12}>
+          <DogFilter />
+        </Grid>
+      </Grid>
 
       <Grid container spacing={3}>
         <Grid item sm={6}>

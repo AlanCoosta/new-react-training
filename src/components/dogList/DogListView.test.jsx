@@ -60,7 +60,7 @@ describe("DogListView", () => {
       <DogListView
         dogBreeds={dogBreedsMock}
         isLoading={false}
-        dogSelected={dogBreedSelectedMock}
+        dogBreedSelected={dogBreedSelectedMock}
         handleSelectDog={handleSelectDogMock}
       />
     );
@@ -108,7 +108,7 @@ describe("DogListView", () => {
       <DogListView
         dogBreeds={dogBreedsMock}
         isLoading={false}
-        dogSelected={dogBreedSelectedEmpty}
+        dogBreedSelected={dogBreedSelectedEmpty}
         handleSelectDog={handleSelectDogMock}
       />
     );
@@ -121,7 +121,7 @@ describe("DogListView", () => {
       <DogListView
         dogBreeds={dogBreedsMock}
         isLoading={false}
-        dogSelected={dogBreedSelectedEmpty}
+        dogBreedSelected={dogBreedSelectedEmpty}
         handleSelectDog={handleSelectDogMock}
       />
     );
@@ -138,7 +138,7 @@ describe("DogListView", () => {
       <DogListView
         dogBreeds={dogBreedsMock}
         isLoading={false}
-        dogSelected={dogBreedSelectedEmpty}
+        dogBreedSelected={dogBreedSelectedEmpty}
         handleSelectDog={handleSelectDogMock}
       />
     );
@@ -153,7 +153,7 @@ describe("DogListView", () => {
       <DogListView
         dogBreeds={dogBreedsMock}
         isLoading={true}
-        dogSelected={dogBreedSelectedEmpty}
+        dogBreedSelected={dogBreedSelectedEmpty}
         handleSelectDog={handleSelectDogMock}
       />
     );
@@ -178,7 +178,7 @@ describe("DogListView", () => {
       <DogListView
         dogBreeds={dogBreedsMock}
         isLoading={false}
-        dogSelected={dogBreedsMock[0]}
+        dogBreedSelected={dogBreedsMock[0]}
         handleSelectDog={handleSelectDogMock}
       />
     );
@@ -193,7 +193,7 @@ describe("DogListView", () => {
       <DogListView
         dogBreeds={dogBreedsEmptyMock}
         isLoading={false}
-        dogSelected={dogBreedSelectedMock}
+        dogBreedSelected={dogBreedSelectedMock}
         handleSelectDog={handleSelectDogMock}
       />
     );

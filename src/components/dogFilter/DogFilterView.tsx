@@ -12,13 +12,13 @@ import { DogFilterStyle } from "./DogFilterView.styles";
 
 interface Props {
   dogBreeds: DogBreed[];
-  letterSelected: string;
+  letterDogBreedSelected: string;
   handleSelectLetter: (letter: string) => void;
 }
 
 const DogFilterView = ({
   dogBreeds,
-  letterSelected,
+  letterDogBreedSelected,
   handleSelectLetter,
 }: Props) => {
   const classes = DogFilterStyle();
@@ -34,10 +34,17 @@ const DogFilterView = ({
           row
           aria-label="breed"
           name="breed"
-          value={letterSelected}
+          value={letterDogBreedSelected}
           onChange={(e) => handleSelectLetter(e.target.value)}
           className={classes.content}
         >
+          <FormControlLabel
+            key="all"
+            value=""
+            control={<Radio color="primary" />}
+            label={<p>All - {dogBreeds?.length}</p>}
+          />
+
           {alphabet.map((item) => (
             <FormControlLabel
               key={item}

@@ -1,21 +1,34 @@
+import { useStoreMap } from "effector-react";
+import { useCallback } from "react";
+
 import DogFilterView from "./DogFilterView";
-import { DogBreed } from "../../types/DogBreedsTypes";
+import DogBreedsStore from "../../stores/dogBreeds/DogBreedsStore";
+import LetterDogBreedSelectedStore from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedStore";
+import * as LetterDogBreedSelectedEffect from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedEffect";
 
-interface Props {
-  dogBreeds: DogBreed[];
-  letterSelected: string;
-  handleSelectLetter: (letter: string) => void;
-}
+const DogFilter = () => {
+  const { dogBreeds } = useStoreMap({
+    store: DogBreedsStore,
+    keys: [],
+    fn: (state) => state,
+  });
 
-const DogFilter = ({
-  dogBreeds,
-  letterSelected,
-  handleSelectLetter,
-}: Props) => {
+  const { letterDogBreedSelected } = useStoreMap({
+    store: LetterDogBreedSelectedStore,
+    keys: [],
+    fn: (state) => state,
+  });
+
+  const handleSelectLetter = useCallback((letterDogBreedSelected: string) => {
+    LetterDogBreedSelectedEffect.onLetterDogBreedSelected({
+      letterDogBreedSelected,
+    });
+  }, []);
+
   return (
     <DogFilterView
       dogBreeds={dogBreeds}
-      letterSelected={letterSelected}
+      letterDogBreedSelected={letterDogBreedSelected}
       handleSelectLetter={handleSelectLetter}
     />
   );

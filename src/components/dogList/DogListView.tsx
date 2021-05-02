@@ -12,14 +12,14 @@ import { DogListStyle } from "./DogListView.styles";
 interface Props {
   dogBreeds: DogBreed[];
   isLoading: boolean;
-  dogSelected: DogBreed;
+  dogBreedSelected: DogBreed;
   handleSelectDog: (dog: DogBreed) => void;
 }
 
 const DogListView = ({
   dogBreeds,
   isLoading,
-  dogSelected,
+  dogBreedSelected,
   handleSelectDog,
 }: Props) => {
   const classes = DogListStyle();
@@ -49,7 +49,7 @@ const DogListView = ({
                 key={item.image}
                 onClick={() => handleSelectDog(item)}
                 className={
-                  item.name === dogSelected?.name
+                  item.name === dogBreedSelected?.name
                     ? classes.listItemSelected
                     : classes.listItem
                 }
