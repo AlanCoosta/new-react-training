@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 
@@ -7,6 +7,7 @@ import CreateBeerFormikForm from "./components/createBeerFormikForm/CreateBeerFo
 import DogDetails from "./components/dogDetails/DogDetails";
 import DogList from "./components/dogList/DogList";
 import DogFilter from "./components/dogFilter/DogFilter";
+import { dogBreeds } from "./stores/dogBreeds/DogBreedsEffect";
 
 import { AppStyles } from "./App.styles";
 import "./App.css";
@@ -16,6 +17,10 @@ const App = () => {
 
   const onAlert = useCallback(() => {
     alert("Welcome to the React Training");
+  }, []);
+
+  useEffect(() => {
+    dogBreeds();
   }, []);
 
   return (
