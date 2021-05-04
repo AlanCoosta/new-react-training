@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import DogFilterView from "./DogFilterView";
 import DogBreedsStore from "../../stores/dogBreeds/DogBreedsStore";
 import LetterDogBreedSelectedStore from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedStore";
-import * as LetterDogBreedSelectedEffect from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedEffect";
+import { onLetterDogBreedSelected } from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedEvents";
 
 const DogFilter = () => {
   const { dogBreeds } = useStoreMap({
@@ -20,7 +20,7 @@ const DogFilter = () => {
   });
 
   const handleSelectLetter = useCallback((letterDogBreedSelected: string) => {
-    LetterDogBreedSelectedEffect.onLetterDogBreedSelected({
+    onLetterDogBreedSelected({
       letterDogBreedSelected,
     });
   }, []);

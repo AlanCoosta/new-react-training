@@ -6,7 +6,7 @@ import DogFilterView from "./DogFilterView";
 
 import DogBreedsStore from "../../stores/dogBreeds/DogBreedsStore";
 
-import * as LetterDogBreedSelectedEffect from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedEffect";
+import * as LetterDogBreedSelectedEffect from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedEvents";
 import LetterDogBreedSelectedStore from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedStore";
 
 jest.mock("effector-react");

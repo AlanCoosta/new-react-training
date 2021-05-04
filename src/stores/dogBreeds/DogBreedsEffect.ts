@@ -1,14 +1,14 @@
 import { createEffect } from "effector";
 import { keys } from "lodash";
 
-import * as LoaderEffect from "../loader/LoaderEffect";
+import { setLoading } from "../loader/LoaderEvents";
 import { getImageBreed } from "../../services/dogImage/DogImageService";
 import { getAllBreeds } from "../../services/dogList/DogListService";
 
 import { DogBreed } from "../../types/DogBreedsTypes";
 
 export const dogBreeds = createEffect(async () => {
-  LoaderEffect.setLoading({ isLoading: true });
+  setLoading({ isLoading: true });
 
   const dogBreedsResponse = await getAllBreeds();
   const keyDogBreedsNames = keys(dogBreedsResponse.message);
@@ -27,7 +27,7 @@ export const dogBreeds = createEffect(async () => {
     )
   );
 
-  LoaderEffect.setLoading({ isLoading: false });
+  setLoading({ isLoading: false });
 
   return formatDogBreeds;
 });

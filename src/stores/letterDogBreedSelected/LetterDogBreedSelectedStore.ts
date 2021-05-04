@@ -1,7 +1,7 @@
 import { createStore } from "effector";
 import { cloneDeep } from "lodash";
 
-import { onLetterDogBreedSelected } from "./LetterDogBreedSelectedEffect";
+import { onLetterDogBreedSelected } from "./LetterDogBreedSelectedEvents";
 import LetterDogBreedSelectedState from "./LetterDogBreedSelectedState";
 
 const initialState: LetterDogBreedSelectedState = {

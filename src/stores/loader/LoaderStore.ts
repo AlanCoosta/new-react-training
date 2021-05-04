@@ -1,7 +1,7 @@
 import { createStore } from "effector";
 import { cloneDeep } from "lodash";
 
-import { setLoading } from "./LoaderEffect";
+import { setLoading } from "./LoaderEvents";
 import LoaderState from "./LoaderState";
 
 const initialState: LoaderState = {
