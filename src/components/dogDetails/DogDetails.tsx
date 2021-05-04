@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { useStoreMap } from "effector-react";
 
 import DogDetailsView from "./DogDetailsView";
-import * as DogBreedsEffect from "../../stores/dogBreeds/DogBreedsEffect";
+import { setDogBreeds } from "../../stores/dogBreeds/DogBreedsEvents";
 import DogBreedSelectedStore from "../../stores/dogBreedSelected/DogBreedSelectedStore";
 import DogBreedsStore from "../../stores/dogBreeds/DogBreedsStore";
 
@@ -41,7 +41,7 @@ const DogDetails = () => {
 
       dogBreeds[breedIndex] = result;
 
-      DogBreedsEffect.setDogBreeds(dogBreeds);
+      setDogBreeds(dogBreeds);
     },
     [dogBreeds]
   );

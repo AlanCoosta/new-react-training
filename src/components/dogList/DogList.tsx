@@ -9,7 +9,7 @@ import DogBreedsStore from "../../stores/dogBreeds/DogBreedsStore";
 import LetterDogBreedSelectedStore from "../../stores/letterDogBreedSelected/LetterDogBreedSelectedStore";
 import LoaderStore from "../../stores/loader/LoaderStore";
 
-import * as DogBreedSelectedEffect from "../../stores/dogBreedSelected/DogBreedSelectedEffect";
+import { onSelectBreed } from "../../stores/dogBreedSelected/DogBreedSelectedEvents";
 
 const DogList = () => {
   const { dogBreeds } = useStoreMap({
@@ -37,7 +37,7 @@ const DogList = () => {
   });
 
   const handleSelectDogBreed = useCallback((dogBreedSelected: DogBreed) => {
-    DogBreedSelectedEffect.onSelectBreed({ dogBreedSelected });
+    onSelectBreed({ dogBreedSelected });
   }, []);
 
   const dogBreedsFiltered = useMemo(() => {

@@ -4,11 +4,13 @@ import { useStoreMap } from "effector-react";
 import DogDetails from "./DogDetails";
 import DogDetailsView from "./DogDetailsView";
 
-import * as DogBreedsEffect from "../../stores/dogBreeds/DogBreedsEffect";
+import * as DogBreedsEvents from "../../stores/dogBreeds/DogBreedsEvents";
+
 import DogBreedsStore from "../../stores/dogBreeds/DogBreedsStore";
 import DogBreedSelectedStore from "../../stores/dogBreedSelected/DogBreedSelectedStore";
 
 jest.mock("effector-react");
+jest.mock("../../stores/dogBreeds/DogBreedsEvents.ts");
 
 const dogBreedMock = {
   name: "affenpinscher",
@@ -45,14 +47,14 @@ describe("DogDetails", () => {
       .mockReturnValueOnce(stateBreedSelected());
 
     jest
-      .spyOn(DogBreedsEffect, "setDogBreeds")
+      .spyOn(DogBreedsEvents, "setDogBreeds")
       .mockImplementation(() => "some value");
 
     const wrapper = shallow(<DogDetails />);
 
     wrapper.invoke("onScold")("affenpinscher");
 
-    expect(DogBreedsEffect.setDogBreeds).toBeCalledWith([
+    expect(DogBreedsEvents.setDogBreeds).toBeCalledWith([
       {
         name: "affenpinscher",
         image: "test",

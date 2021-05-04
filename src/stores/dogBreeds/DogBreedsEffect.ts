@@ -1,4 +1,4 @@
-import { createEffect, createEvent } from "effector";
+import { createEffect } from "effector";
 import { keys } from "lodash";
 
 import * as LoaderEffect from "../loader/LoaderEffect";
@@ -31,5 +31,3 @@ export const dogBreeds = createEffect(async () => {
 
   return formatDogBreeds;
 });
-
-export const setDogBreeds = createEvent<DogBreed[]>();
